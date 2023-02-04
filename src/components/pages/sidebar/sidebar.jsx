@@ -213,7 +213,13 @@ const Sidebar = () => {
                             </li>
                             <li>
                                 <Link>
-                                    <AiOutlinePlusSquare  onClick={() => setOpen(true)}/>
+                                    <AiOutlinePlusSquare onClick={() => {
+                                        if (open === false) {
+                                            setOpen(true)
+                                        } else {
+                                            setOpen(false)
+                                        }
+                                    } }/>
                                     <div className={c.linksa} onClick={() => setOpen(true)}>
                                         Создать
                                     </div>

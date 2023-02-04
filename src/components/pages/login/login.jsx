@@ -7,13 +7,15 @@ import image3 from "../../../img/micro.png";
 import image4 from "../../../img/screenshot3.png";
 import {useForm} from "react-hook-form";
 import {API} from "../../redux/api";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {isFetchingAction} from "../../redux/reducers";
 
 const Login = () => {
     const accessToken = localStorage.getItem('accessToken');
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const isFetching= useSelector(state => state.allState.isFetching);
+    const user = useSelector(state => state.allState.user);
 
     const {register, handleSubmit, formState: {errors}} = useForm({
         mode: 'onChange',
@@ -34,9 +36,8 @@ const Login = () => {
                 API.verifyUser(accessToken);
                 API.getUsers();
                 dispatch(isFetchingAction(true));
-                navigate('/');
+                navigate('/')
             },1000)
-
         }
     }
 

@@ -4,10 +4,12 @@ import {AiFillHeart} from "@react-icons/all-files/ai/AiFillHeart";
 import {FaRegComment} from "@react-icons/all-files/fa/FaRegComment";
 import {BsBookmark} from "@react-icons/all-files/bs/BsBookmark";
 import c from './postsComp.module.scss';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import noProfile from "../../../../../img/1.jpg";
 import {API} from "../../../../redux/api";
 import {BsFillBookmarkFill} from "@react-icons/all-files/bs/BsFillBookmarkFill";
+import {selectedPost, selectedUserAction} from "../../../../redux/reducers";
+import {Link} from "react-router-dom";
 
 const PostsComp = ({p}) => {
     const user = useSelector(state => state.allState.user);
@@ -20,10 +22,18 @@ const PostsComp = ({p}) => {
     //SAVES
     const saves = useSelector(state => state.allState.saves);
 
-
+    const selectPost =() => {
+        dispatch(selectedPost(p));
+    }
 
     const subPostsF= subPosts.filter(s => s.length > 0);
 
+    const dispatch= useDispatch();
+
+    const selectUser = (fi) => {
+        dispatch(selectedUserAction(fi));
+        API.getSelectedUserPosts(fi.id);
+    }
     //SAVE
     const savePost =()=>{
         API.postSave(p.id,accessToken);
@@ -39,32 +49,42 @@ const PostsComp = ({p}) => {
                     <div>
                         {usersFiltered.map(u=> (
                                 u.avatar?.length > 1 ? (
-                                    <img className={c.img} src={u.avatar} alt="#"/>
+                                    <Link to={'/profileDetail'}>
+                                        <img onClick={()=> selectUser(u)} className={c.img} src={u.avatar} alt="#"/>
+                                    </Link>
                                 ) : (
-                                    <img className={c.img} src={noProfile} alt="#"/>
+                                    <Link  to={'/profileDetail'}>
+                                        <img  onClick={()=> selectUser(u)} className={c.img} src={noProfile} alt="#"/>
+                                    </Link>
                                 )
                         ))}
                         <span>
                         {usersFiltered.map(u => (
-                            <span>{u.username}</span>
+                            <span className={c.userName}  onClick={()=> selectUser(u)}>
+                            <Link  to={'/profileDetail'}>
+                                 {u.username}
+                            </Link>
+                            </span>
                         ))}
                        </span>
                     </div>
                     <BiDotsHorizontalRounded/>
                 </div>
 
-                <div className={c.userPost_img}>
-                    {
-                        p?.post_images[0]?.image ? (
+                <div className={c.userPost_img}  onClick={selectPost}>
+                    <Link to={'/postDetail'}>
+                        {
+                            p?.post_images[0]?.image ? (
 
                                 <img className={c.imgPost} src={`${base}${p.post_images[0]?.image}`} alt="#"/>
 
-                        ) : (
-                            <div className={c.noImage}>
-                                <h1>no image</h1>
-                            </div>
-                        )
-                    }
+                            ) : (
+                                <div className={c.noImage}>
+                                    <h1>no image</h1>
+                                </div>
+                            )
+                        }
+                    </Link>
 
                     <div className={c.userPost_img_signs}>
                         <div className={c.userPost_img_signs_heart}>

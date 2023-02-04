@@ -8,6 +8,7 @@ import noProfile from '../../../img/1.jpg';
 import {IoClose} from "@react-icons/all-files/io5/IoClose";
 import Follows from "./follows/follows";
 import PostsMain from "./posts/postsMain";
+import {selectedUserAction} from "../../redux/reducers";
 
 const Main = () => {
     const user = useSelector(state => state.allState.user);
@@ -30,8 +31,6 @@ const Main = () => {
         }, 1100)
 
     }, [user, subPosts])
-
-
 
     //FOLLOW
     const follow = (data) => {
