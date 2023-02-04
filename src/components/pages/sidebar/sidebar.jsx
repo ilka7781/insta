@@ -199,7 +199,13 @@ const Sidebar = () => {
                             </li>
                             <li>
                                 <Link>
-                                    <BsSearch onClick={() => setOpenUsers(true)}/>
+                                    <BsSearch onClick={() => {
+                                        if (openUsers === false) {
+                                            setOpenUsers(true)
+                                        } else {
+                                            setOpenUsers(false)
+                                         }
+                                    } }/>
                                     <div className={c.linksa} onClick={() => setOpenUsers(true)}>
                                         Поисковый запрос
                                     </div>

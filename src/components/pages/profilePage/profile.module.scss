@@ -111,3 +111,38 @@
 .bold{
   font-weight: bold;
 }
+
+@media (max-width: 900px) {
+  .cards{
+    grid-template-columns: 1fr;
+    max-width: 800px;
+  }
+  .spans{
+    display: none;
+  }
+  .img{
+    width: 60px;
+    height: 60px;
+  }
+  .profile{
+    gap: 10px;
+    &_info_body{
+      gap: 10px;
+      ul {
+        gap: 10px;
+        li{
+          font-size: 12px;
+        }
+      }
+    }
+    &_info_head{
+      span{
+        font-size: 15px;
+      }
+    }
+  }
+
+  .button{
+    font-size: 8px;
+  }
+}

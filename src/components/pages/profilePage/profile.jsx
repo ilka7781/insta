@@ -74,18 +74,24 @@ const Profile = () => {
                         setSaves(false);
                     }} className={posts ? c.bold : c.normal}>
                         <BsGrid3X3/>
-                        ПУБЛИКАЦИИ
+                         <span className={c.spans}>
+                             ПУБЛИКАЦИИ
+                         </span>
                     </div>
                     <div onClick={()=>{
                         setPosts(false);
                         setSaves(true);
                     }} className={saves ? c.bold : c.normal}>
                         <BsBookmark />
-                        СОХРАНЕННОЕ
+                        <span className={c.spans}>
+                            СОХРАНЕННОЕ
+                        </span>
                     </div>
                     <div>
                         <CgProfile/>
-                        ОТМЕТКИ
+                        <span className={c.spans}>
+                            ОТМЕТКИ
+                        </span>
                     </div>
                 </div>
                 <div className={c.cards}>

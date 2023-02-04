@@ -7,6 +7,7 @@
 .userPost{
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 30px;
     background-color: white;
     border-radius: 10px;
@@ -73,4 +74,12 @@
 }
 .hr{
     color: black;
+}
+@media(max-width: 900px) {
+    .userPost_img{
+        img{
+            width: 80%;
+            margin: auto;
+        }
+    }
 }

@@ -3,14 +3,12 @@ import {useSelector} from "react-redux";
 import c from "./profileDetail.module.scss";
 import {BsGrid3X3} from "@react-icons/all-files/bs/BsGrid3X3";
 import {CgProfile} from "@react-icons/all-files/cg/CgProfile";
-import Posts from "../posts/posts";
 import {MdOutlineImageNotSupported} from "react-icons/md";
 import PostsProfileDetail from "./profileDetailPosts/postsProfileDetail";
 
 const ProfileDetail = () => {
     const selectedUser = useSelector(state => state.allState.selectedUser);
-    const selectedUserPosts =useSelector(state => state.allState.selectedUserPosts);
-
+    const selectedUserPosts = useSelector(state => state.allState.selectedUserPosts);
 
 
     return (
@@ -33,13 +31,13 @@ const ProfileDetail = () => {
                         </ul>
                         <ul>
                             <li>
-                                <span className={c.bold}>{selectedUser.subscriptions}</span>  подписок
+                                <span className={c.bold}>{selectedUser.subscriptions}</span> подписок
                             </li>
                             <li>
-                                <span className={c.bold}>{selectedUser.subscribers}</span>  подписчиков
+                                <span className={c.bold}>{selectedUser.subscribers}</span> подписчиков
                             </li>
                             <li>
-                                <span className={c.bold}>{selectedUserPosts.length}</span>  публикаций
+                                <span className={c.bold}>{selectedUserPosts.length}</span> публикаций
                             </li>
                         </ul>
                     </div>
@@ -51,11 +49,15 @@ const ProfileDetail = () => {
 
                     <div>
                         <BsGrid3X3/>
-                        ПУБЛИКАЦИИ
+                        <span className={c.spans}>
+                           ПУБЛИКАЦИИ
+                       </span>
                     </div>
                     <div>
                         <CgProfile/>
-                        ОТМЕТКИ
+                        <span className={c.spans}>
+                            ОТМЕТКИ
+                       </span>
                     </div>
                 </div>
                 <div className={c.cards}>

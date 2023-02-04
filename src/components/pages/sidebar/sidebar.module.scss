@@ -103,13 +103,13 @@
   background: rgba(0,0,0,0.3);
   background-size: cover;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
   &_block{
     background-color: white;
     border-radius: 10px;
     max-width: max-content;
     height: max-content;
-    margin: 20vh auto;
+    margin: auto;
     &_p{
       padding: 10px;
       font-size: 20px;
@@ -273,6 +273,49 @@
     border-radius: 10px;
   }
 }
+@media(max-width: 790px){
+  .sidebarContent{
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    &_links{
+      ul{
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 2vh!important;
+      }
+      ul li{
+        padding: 12px;
+        margin-bottom: 0;
+        &:hover{
+          transition: 0.2s linear;
+          background-color: #f6f6f6;
+          border-radius: 20px;
+          cursor: pointer;
+          svg{
+            transition: 0.2s linear;
+            transform: scale(1.15);
+          }
+        }
+      }
+      ul li a {
+        display: flex;
+        text-decoration: none;
+        color: black;
+        align-items: center;
+        gap: 2vh;
+        svg{
+          font-size: 34px;
+        }
+      }
+    }
+    &_more{
+      bottom: 22.5%;
+      left: 5%!important;
+    }
+  }
+}
 
 @media (max-width: 1000px) {
   .sidebar{
@@ -285,7 +328,6 @@
   }
   .sidebarContent{
     flex-direction: row;
-
     justify-content: center;
     align-items: center;
     &_links{
@@ -330,8 +372,8 @@
     width: 44px;
   }
   .esheDiv{
-    bottom: 28.5%;
-    left: 11%;
+    bottom: 78.5%;
+    left: 4%;
   }
 }
 
