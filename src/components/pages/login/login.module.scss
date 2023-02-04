@@ -1,0 +1,114 @@
+.container{
+  max-width: 1200px;
+  margin: 20vh auto;
+  grid-area: b;
+}
+.login{
+  border: 1px solid rgb(219, 219, 219);
+  padding: 40px;
+  margin: auto;
+  border-radius: 1px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.des{
+  margin: 0 40px 10px;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 20px;
+  color: rgb(142, 142, 142);
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 20px;
+}
+.inputs{
+  border-radius: 3px;
+  width: 250px;
+  padding: 10px;
+  border: 1px solid rgb(219, 219, 219);
+  &:focus{
+    outline: 1px solid rgb(189, 187, 187);
+  }
+}
+.button{
+  margin-top: 20px;
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+  background-color: #0f8dec;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  width: 100%;
+  &:hover{
+    cursor: pointer;
+    background-color: #0074cc;
+  }
+}
+.instImg{
+  max-width: 100%;
+  height: 61px;
+  margin-bottom: 10px;
+}
+.footer{
+  border: 1px solid rgb(219, 219, 219);
+  padding: 30px 10px;
+  border-radius: 1px;
+  background-color: white;
+  margin-top: 20px;
+  div{
+    font-size: 15px;
+  }
+}
+.link {
+  text-decoration: none;
+  margin-left: 5px;
+  color: #0f8dec;
+}
+.footerInsta{
+  margin-top: 28px;
+  &_img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    & img{
+      height: 40px;
+    }
+  }
+}
+.loginCon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.leftImg{
+  background-image: url("../../../img/back.png");
+  background-repeat: no-repeat;
+  background-position: -50px -11px;
+  width: 470px;
+  height: 640px;
+  & img{
+    margin-top: 13px;
+  }
+
+}
+.errors{
+  color: red;
+  font-size: 15px;
+  text-align: left;
+  margin-top: 8px;
+}
+
+@media (max-width: 875px) {
+  .leftImg{
+    display: none;
+  }
+}

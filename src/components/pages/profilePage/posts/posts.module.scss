@@ -1,0 +1,47 @@
+.cards{
+  position: relative;
+  z-index: 0;
+  &_img{
+    height: 100%;
+    max-height: 100%;
+    width: 100%;
+    &_2{
+      height: 300px;
+      width: 300px;
+    }
+  }
+}
+.layout{
+  position: absolute;
+  transform: translate(-100%,-0%);
+  top: 0%;
+  left: 100%;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+.inactive{
+  display: none;
+}
+.show{
+  display: block;
+}
+.likes{
+  transform: translate(-0%,650%);
+  top: 50%;
+  left: 0%;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  svg{
+    font-size: 25px;
+    color: white;
+  }
+}
+.liked{
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}

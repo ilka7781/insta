@@ -1,38 +1,22 @@
+@import 'Null.scss';
+
 .App {
+  position: relative;
   text-align: center;
+  display: grid;
+  grid-template-areas: 'a b b b  b b b b  b b b b';
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #f6f6f6;
+  font-family: -apple-system,BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media(max-width: 890px){
+  .App{
+    grid-template-areas: 'b b b b  b b b b  b b b b';
   }
 }

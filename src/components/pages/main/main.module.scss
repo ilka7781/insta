@@ -1,0 +1,137 @@
+.container{
+  max-width: 100%;
+  background-color: white;
+  grid-area: b;
+  padding: 35px 40px;
+}
+a{
+  text-decoration: none;
+  color: black;
+}
+.main{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 1000px;
+  margin: auto;
+  @media (max-width: 1200px) {
+      grid-template-columns: 1fr;
+      .main_body{
+        justify-content: center;
+        margin: auto;
+      }
+  }
+  &_body{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+    &_header{
+      display: flex;
+      gap: 15px;
+      overflow-x: scroll;
+    }
+    &_posts{
+      margin-top: 30px;
+    }
+  }
+  &_user{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    @media (max-width: 1000px) {
+      display: none;
+    }
+    &_avatar{
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      &_1{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        span{
+          font-weight: bold;
+          font-size: 17px;
+        }
+        img{
+          height: 70px;
+          width: 70px;
+          border-radius: 50%;
+        }
+      }
+      &_2{
+        a{
+          text-decoration: none;
+          color: #0f8dec;
+          font-weight: bold;
+          font-size: 14px;
+          &:hover{
+            color: #0074cc;
+          }
+        }
+      }
+
+    }
+  }
+}
+.recFollow{
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  transform: translate(-50%,-2%);
+  background: rgba(0,0,0,0.3);
+  background-size: cover;
+  width: 100%;
+  z-index: 1;
+  &_block{
+    padding: 50px;
+    background-color: white;
+    border-radius: 10px;
+    margin: 10% auto;
+    max-width: max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  &_users{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &_followBtn{
+      border-radius: 10px;
+      padding: 10px;
+      color: white;
+      border: none;
+      background-color: #0f8dec;
+      &:hover{
+        cursor: pointer;
+        background-color: #0074cc;
+      }
+    }
+    &_avatar{
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      img{
+        height: 50px;
+        border-radius: 50%;
+        max-width: 100%;
+      }
+    }
+  }
+}
+.inActive{
+  display: none;
+}
+.close{
+  position: absolute;
+  top: 3.5%;
+  right: 5%;
+  color: white;
+  font-size: 45px;
+  &:hover{
+    cursor: pointer;
+  }
+}

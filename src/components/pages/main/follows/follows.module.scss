@@ -1,0 +1,15 @@
+.followCards {
+  a {
+    display: block;
+  }
+
+  img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

@@ -1,0 +1,88 @@
+.pCards{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.likeBtn{
+  &:hover{
+    color: #5b5b5b;
+    cursor: pointer;
+  }
+}
+.userPost_header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  div{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    span{
+      font-size: 20px;
+      color: black;
+    }
+  }
+  svg{
+    font-size: 30px;
+  }
+}
+.userPost_img{
+  width: 100%;
+  height: max-content;
+  margin-top: 20px;
+  &_signs{
+    svg{
+      font-size: 25px;
+      &:hover{
+        cursor: pointer;
+      }
+    }
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    &_heart{
+      div{
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+  }
+  &_footer{
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    &_boldS{
+      font-weight: bold;
+    }
+  }
+}
+
+.noImage{
+  max-width: 100%;
+  height: 400px;
+  position: relative;
+  background-color: #e7e5e5;
+  h1{
+    top: 45%;
+    position: absolute;
+    left: 45%;
+  }
+}
+.img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.imgPost{
+  width: 100%;
+  height: 100%;
+}
+.inActive{
+  display: none;
+}

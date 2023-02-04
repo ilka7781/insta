@@ -1,0 +1,19 @@
+.container{
+  max-width: 1200px;
+  margin: 20% auto;
+  img{
+    height: 150px;
+    animation: loader 1s linear infinite;
+    @keyframes loader {
+      0%{
+        transform: scale(1);
+      }
+      50%{
+        transform: scale(1.05);
+      }
+      100%{
+        transform: scale(1);
+      }
+    }
+  }
+}
