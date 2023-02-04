@@ -1,12 +1,14 @@
 import React from 'react';
 import c from './postDetail.module.scss';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {BiDotsHorizontalRounded} from "@react-icons/all-files/bi/BiDotsHorizontalRounded";
 import {AiFillHeart} from "@react-icons/all-files/ai/AiFillHeart";
 import {BsBookmark} from "@react-icons/all-files/bs/BsBookmark";
 import {FaRegComment} from "@react-icons/all-files/fa/FaRegComment";
 import noProfile from '../../../../../img/1.jpg';
 import {API} from "../../../../redux/api";
+import {Link} from "react-router-dom";
+import {selectedUserAction} from "../../../../redux/reducers";
 
 const PostDetail = () => {
     const sPost = useSelector(state => state.allState.selectedPost);
@@ -15,6 +17,12 @@ const PostDetail = () => {
     const base = 'https://cryxxxen.pythonanywhere.com/';
     const accessToken = localStorage.getItem('accessToken');
 
+    const dispatch= useDispatch();
+
+    const selectUser = (fi) => {
+        dispatch(selectedUserAction(fi));
+        API.getSelectedUserPosts(fi.id);
+    }
     //SAVE
     const savePost =()=>{
         API.postSave(sPost.id,accessToken);
@@ -27,11 +35,13 @@ const PostDetail = () => {
         <div className={c.container}>
             <div className={c.userPost}>
                 <div className={c.userPost_header}>
-                    <div>
-                        <img src={selectedUser[0]?.avatar} alt="#"/>
-                        <span>
+                    <div onClick={()=>selectUser(selectedUser)}>
+                        <Link className={c.userInfo} to={'/profileDetail'}>
+                            <img src={selectedUser[0]?.avatar} alt="#"/>
+                            <span>
                         {selectedUser[0]?.username}
                         </span>
+                        </Link>
                     </div>
                     <BiDotsHorizontalRounded/>
                 </div>

@@ -75,6 +75,11 @@
 .hr{
     color: black;
 }
+.userInfo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 @media(max-width: 900px) {
     .userPost_img{
         img{
