@@ -53,7 +53,7 @@ const Sidebar = () => {
     const handleImg = (data) => {
         const formData = new FormData;
         formData.append('post', postId);
-        formData.append('image', img)
+        formData.append('image', img);
         API.postImage(formData, user?.id, accessToken);
         setTimeout(() => {
             API.getUserPosts(user?.id);
@@ -283,6 +283,9 @@ const Sidebar = () => {
                             <label className={c.foto} htmlFor={'upload_file'}>
                                 Загрузить фото
                             </label>
+                            <p className={img ? c.vybrano : `${c.vybrano} ${c.input}` }>
+                                Выбрано фото {img?.name}
+                            </p>
                             <input id={'upload_file'} type="file" className={c.input}
                                    onChange={(e) => setImg(e.target.files[0])}/>
                             <button className={c.upload}>

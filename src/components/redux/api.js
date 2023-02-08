@@ -2,7 +2,7 @@ import axios from "axios";
 import {
     isFetchingAction,
     setFollowAction,
-    setPostId, setResetAction, setSavePostsAction, setSelectedUserPostsAction,
+    setPostId, setResetAction, setSavePostsAction, setSelectedUserPostsAction, setStoryAction,
     setSubscriptionsPosts,
     setUserAction,
     setUserPosts,
@@ -34,6 +34,13 @@ export const API = {
             }).then(res => {
 
                 store.dispatch(setUserAction(res.data));
+                axios.get(`${base}users/${res.data.id}/stories/`)
+                    .then(res=>{
+                        store.dispatch(setStoryAction(res.data))
+                    }).catch(error=>{
+                    console.log(error)
+                });
+
                 axios.get(`${base}users/${res.data.id}/saves/`,{
                     headers: {
                         'Authorization': `Bearer ${access}`
@@ -111,6 +118,24 @@ export const API = {
                 });
                 store.dispatch(isFetchingAction(false));
             }
+        })
+    },
+    postStories: (data,user, accessToken)=>{
+        axios.post(`${base}stories/`, data, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        }).then(res=>{
+            if (res){
+                axios.get(`${base}users/${user}/stories/`)
+                    .then(res=>{
+                        store.dispatch(setStoryAction(res.data))
+                    }).catch(error=>{
+                        console.log(error)
+                })
+            }
+        }).catch(error=>{
+            console.log(error)
         })
     },
     getUsers: () => {
