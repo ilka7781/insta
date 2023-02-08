@@ -13,6 +13,7 @@ import {selectedUserAction} from "../../../../redux/reducers";
 
 const PostDetail = () => {
     const sPost = useSelector(state => state.allState.selectedPost);
+    const user = useSelector(state => state.allState.user);
     const users = useSelector(state => state.allState.users);
     const selectedUser = users?.filter(u => u.id === sPost.user);
     const base = 'https://cryxxxen.pythonanywhere.com/';
@@ -24,6 +25,11 @@ const PostDetail = () => {
     const selectUser = (fi) => {
         dispatch(selectedUserAction(fi));
         API.getSelectedUserPosts(fi[0]?.id);
+    }
+
+    //DELETE
+    const deletePost = () => {
+        API.deletePost(sPost.id, accessToken, user.id);
     }
     //SAVE
     const savePost =()=>{
@@ -56,6 +62,7 @@ const PostDetail = () => {
                         <ul>
                             <li onClick={postLike}>Лайкнуть</li>
                             <li onClick={savePost}>Сохранить</li>
+                            <li className={ user.id === sPost.user ? c.li : `${c.li} ${c.inActive}`} onClick={deletePost}>Удалить</li>
                         </ul>
                     </div>
                 </div>

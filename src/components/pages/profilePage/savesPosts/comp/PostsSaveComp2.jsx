@@ -7,18 +7,18 @@ import {useDispatch} from "react-redux";
 import {selectedPost} from "../../../../redux/reducers";
 
 const PostsSaveComp2 = (props) => {
-    const filteredSubPosts= props.si.filter(s=> s.id === props.save.post);
+    const filteredSubPosts = props.si.filter(s=> s.id === props.save.post);
     const base ='https://cryxxxen.pythonanywhere.com/';
     const [show, setShow] = useState(false);
     const dispatch = useDispatch();
 
-    const le = filteredSubPosts.filter(f => f !== null);
-    console.log(le);
+    const le = filteredSubPosts.filter(f => f[0] !== null);
+    console.log(le)
     const selectPost =(f) => {
         dispatch(selectedPost(f));
     }
 
-    const filteredMap = filteredSubPosts.map(f=>(
+    const filteredMap = le?.map(f=>(
         <div className={c.cards} onClick={() => selectPost(f)} onMouseEnter={()=> setShow(!show)} onMouseLeave={()=> setShow(!show)}>
             <Link to={'/postDetail'} >
                 {

@@ -63,6 +63,11 @@ const Profile = () => {
                             </li>
                         </ul>
                     </div>
+                     <div className={c.profile_info_stories}>
+                        <div className={c.profile_info_stories_add}>
+
+                        </div>
+                     </div>
                 </div>
             </div>
             <div className={c.posts}>

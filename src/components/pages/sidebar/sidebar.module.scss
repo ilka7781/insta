@@ -97,6 +97,7 @@
 }
 .layout{
   position: absolute;
+  padding: 11% 0;
   top: 0%;
   left: 50%;
   transform: translate(-50%,0%);
@@ -318,6 +319,16 @@
 }
 
 @media (max-width: 1000px) {
+  .layout{
+    padding: 25% 0%;
+    &_block_add{
+    padding:20px;
+    gap: 8px;
+    }
+  }
+  .foto{
+    padding: 20px;
+  }
   .sidebar{
     position: fixed;
     bottom: 0;

@@ -71,7 +71,7 @@ const ProfileEdit = () => {
                                required: 'Заполните  био!'
                            })}
                     />
-                    {errors?.bio && <span className={c.errors}> {errors?.bio.message} </span>}
+
 
                     <input className={c.inputs} type="file" placeholder='Аватарка'
                            {...register('avatar', {

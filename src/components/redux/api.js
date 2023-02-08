@@ -2,7 +2,7 @@ import axios from "axios";
 import {
     isFetchingAction,
     setFollowAction,
-    setPostId, setSavePostsAction, setSelectedUserPostsAction,
+    setPostId, setResetAction, setSavePostsAction, setSelectedUserPostsAction,
     setSubscriptionsPosts,
     setUserAction,
     setUserPosts,
@@ -182,6 +182,15 @@ export const API = {
             console.log(error);
         })
     },
+    deletePost: (sPost, accessToken, user) => {
+        axios.delete(`${base}posts/${sPost}/`,{
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        }).catch(error =>{
+                console.log(error)
+        })
+    },
     postSave: (post, accessToken) => {
         axios.post(`${base}saves/`,{
             post: post
@@ -208,6 +217,10 @@ export const API = {
         }, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`
+            }
+        }).then(res => {
+            if (res){
+                store.dispatch(setResetAction);
             }
         }).catch(error => {
             console.log(error)
