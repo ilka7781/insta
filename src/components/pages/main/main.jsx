@@ -17,7 +17,7 @@ const Main = () => {
     const isFetching = useSelector(state => state.allState.isFetching);
     const stories = useSelector(state => state.allState.stories);
     const subPosts = useSelector(state => state.allState.subPosts);
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = sessionStorage.getItem('accessToken');
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
 

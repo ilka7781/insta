@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {BiDotsHorizontalRounded} from "@react-icons/all-files/bi/BiDotsHorizontalRounded";
 import {AiFillHeart} from "@react-icons/all-files/ai/AiFillHeart";
 import {FaRegComment} from "@react-icons/all-files/fa/FaRegComment";
@@ -17,7 +17,8 @@ const PostsComp = ({p}) => {
     const usersFiltered = users.filter(u => u.id === p.user);
     const subPosts = useSelector(state => state.allState.subPosts);
     const base = 'https://cryxxxen.pythonanywhere.com/';
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = sessionStorage.getItem('accessToken');
+    const [open, setOpen] = useState(false);
 
     //SAVES
     const saves = useSelector(state => state.allState.saves);
@@ -68,7 +69,20 @@ const PostsComp = ({p}) => {
                         ))}
                        </span>
                     </div>
-                    <BiDotsHorizontalRounded/>
+                    <BiDotsHorizontalRounded onClick={() => {
+                        if (open === false) {
+                            setOpen(true)
+                        } else (
+                            setOpen(false)
+                        )
+                    }}/>
+                    <div className={open ? c.dotsDiv : `${c.dotsDiv} ${c.inActive}`}>
+                        <ul>
+                            <li onClick={postLike}>Лайкнуть</li>
+                            <li onClick={savePost}>Сохранить</li>
+                        </ul>
+                    </div>
+
                 </div>
 
                 <div className={c.userPost_img}  onClick={selectPost}>

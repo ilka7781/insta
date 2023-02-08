@@ -11,11 +11,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {isFetchingAction} from "../../redux/reducers";
 
 const Login = () => {
-    const accessToken = localStorage.getItem('accessToken');
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const isFetching= useSelector(state => state.allState.isFetching);
-    const user = useSelector(state => state.allState.user);
+
 
     const {register, handleSubmit, formState: {errors}} = useForm({
         mode: 'onChange',
@@ -33,7 +31,6 @@ const Login = () => {
         if (formData){
             API.getToken({username: data.user_name, password: data.password});
             setTimeout(()=>{
-                API.verifyUser(accessToken);
                 API.getUsers();
                 dispatch(isFetchingAction(true));
                 navigate('/')

@@ -28,8 +28,8 @@ const Sidebar = () => {
     const [img, setImg] = useState(null);
     const [openEshe, setOpenEshe] = useState(false);
 
-    const accessToken = localStorage.getItem('accessToken');
-    const refreshToken = localStorage.getItem('refreshToken');
+    const accessToken = sessionStorage.getItem('accessToken');
+    const refreshToken = sessionStorage.getItem('refreshToken');
     const dispatch = useDispatch();
 
     const navigate= useNavigate();

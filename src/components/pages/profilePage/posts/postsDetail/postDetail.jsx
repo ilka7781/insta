@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import c from './postDetail.module.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {BiDotsHorizontalRounded} from "@react-icons/all-files/bi/BiDotsHorizontalRounded";
 import {AiFillHeart} from "@react-icons/all-files/ai/AiFillHeart";
 import {BsBookmark} from "@react-icons/all-files/bs/BsBookmark";
+import {BsFillBookmarkFill} from "@react-icons/all-files/bs/BsFillBookmarkFill";
 import {FaRegComment} from "@react-icons/all-files/fa/FaRegComment";
 import noProfile from '../../../../../img/1.jpg';
 import {API} from "../../../../redux/api";
@@ -15,13 +16,14 @@ const PostDetail = () => {
     const users = useSelector(state => state.allState.users);
     const selectedUser = users?.filter(u => u.id === sPost.user);
     const base = 'https://cryxxxen.pythonanywhere.com/';
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = sessionStorage.getItem('accessToken');
+    const [open,setOpen] = useState(false);
 
     const dispatch= useDispatch();
 
     const selectUser = (fi) => {
         dispatch(selectedUserAction(fi));
-        API.getSelectedUserPosts(fi.id);
+        API.getSelectedUserPosts(fi[0]?.id);
     }
     //SAVE
     const savePost =()=>{
@@ -37,13 +39,25 @@ const PostDetail = () => {
                 <div className={c.userPost_header}>
                     <div onClick={()=>selectUser(selectedUser)}>
                         <Link className={c.userInfo} to={'/profileDetail'}>
-                            <img src={selectedUser[0]?.avatar} alt="#"/>
+                            <img src={selectedUser[0]?.avatar ? selectedUser[0]?.avatar : noProfile} alt="#"/>
                             <span>
                         {selectedUser[0]?.username}
                         </span>
                         </Link>
                     </div>
-                    <BiDotsHorizontalRounded/>
+                    <BiDotsHorizontalRounded onClick={() => {
+                        if (open === false) {
+                            setOpen(true)
+                        } else (
+                            setOpen(false)
+                        )
+                    }}/>
+                    <div className={open ? c.dotsDiv : `${c.dotsDiv} ${c.inActive}`}>
+                        <ul>
+                            <li onClick={postLike}>Лайкнуть</li>
+                            <li onClick={savePost}>Сохранить</li>
+                        </ul>
+                    </div>
                 </div>
                 <div>
                     <hr/>

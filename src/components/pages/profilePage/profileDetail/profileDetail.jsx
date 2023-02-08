@@ -15,29 +15,29 @@ const ProfileDetail = () => {
         <div className={c.container}>
             <div className={c.profile}>
                 <div className={c.profile_img}>
-                    <img className={c.img} src={selectedUser.avatar ? selectedUser.avatar : selectedUser[0].avatar } alt="#"/>
+                    <img className={c.img} src={selectedUser?.avatar ? selectedUser?.avatar : selectedUser[0]?.avatar } alt="#"/>
                 </div>
                 <div className={c.profile_info}>
                     <div className={c.profile_info_head}>
                         <span>
-                            {selectedUser.username ? selectedUser.username : selectedUser[0].username}
+                            {selectedUser?.username ? selectedUser?.username : selectedUser[0]?.username}
                         </span>
                     </div>
                     <div className={c.profile_info_body}>
                         <ul>
                             <li className={c.bio}>
-                                {selectedUser.bio ? selectedUser.bio : selectedUser[0].bio}
+                                {selectedUser?.bio ? selectedUser?.bio : selectedUser[0]?.bio}
                             </li>
                         </ul>
                         <ul>
                             <li>
-                                <span className={c.bold}>{selectedUser.subscriptions ? selectedUser.subscriptions: selectedUser[0].subscriptions}</span> подписок
+                                <span className={c.bold}>{selectedUser?.subscriptions ? selectedUser?.subscriptions: selectedUser[0]?.subscriptions}</span> подписок
                             </li>
                             <li>
-                                <span className={c.bold}>{selectedUser.subscribers ? selectedUser.subscribers: selectedUser[0].subscribers}</span> подписчиков
+                                <span className={c.bold}>{selectedUser?.subscribers ? selectedUser?.subscribers: selectedUser[0]?.subscribers}</span> подписчиков
                             </li>
                             <li>
-                                <span className={c.bold}>{selectedUserPosts.length}</span> публикаций
+                                <span className={c.bold}>{selectedUserPosts?.length}</span> публикаций
                             </li>
                         </ul>
                     </div>

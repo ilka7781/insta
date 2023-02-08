@@ -15,7 +15,7 @@ const ProfileEdit = () => {
     const [avatar, setImg] = useState(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = sessionStorage.getItem('accessToken');
 
     const {register, handleSubmit, reset, formState: {errors}} = useForm({
         mode: 'onChange',

@@ -16,7 +16,7 @@ const Profile = () => {
     const userPosts = useSelector(state => state.allState.userPosts);
     const saveS = useSelector(state => state.allState.saves);
     const navigate = useNavigate();
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = sessionStorage.getItem('accessToken');
     const [posts, setPosts] = useState(true);
     const [saves, setSaves] = useState(false);
 

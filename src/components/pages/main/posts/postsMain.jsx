@@ -5,7 +5,7 @@ import PostsComp from "./postsComp/postsComp";
 const PostsMain = ({p}) => {
 
     const posts = p?.map(p => (
-       <PostsComp p={p}/>
+       <PostsComp key={p.id} p={p}/>
     ))
 
     return (

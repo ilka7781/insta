@@ -31,7 +31,7 @@ const PostsProfileDetail = ({s}) => {
                     <div className={c.likes}>
                         <AiFillHeart/>
                         <span className={c.liked}>
-                            {s?.liked.length > 0 ? s?.liked.length : 0}
+                            {s?.liked?.length > 0 ? s?.liked?.length : 0}
                         </span>
                     </div>
                 </div>

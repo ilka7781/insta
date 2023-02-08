@@ -9,11 +9,8 @@ import {
     setUsersAction
 } from "./reducers";
 import {store} from "./state";
-
-
-
 const base = 'https://cryxxxen.pythonanywhere.com/';
-export const accessToken = localStorage.getItem('accessToken');
+
 
 export const API = {
     register: (data) => {
@@ -26,49 +23,49 @@ export const API = {
     },
     getToken: (data)=> {
         axios.post(`${base}token/`, data).then(res => {
-            localStorage.setItem('accessToken', res.data.access);
-            localStorage.setItem('refreshToken', res.data.refresh);
-            store.dispatch(isFetchingAction(false));
-        }).catch(error => {
-            console.log(error)
-        })
-    },
-    verifyUser: (data) => {
-        axios.get(`${base}users/current_user/`, {
-            headers: {
-                'Authorization': `Bearer ${data}`
-            }
-        }).then(res => {
-            store.dispatch(setUserAction(res.data));
-            axios.get(`${base}users/${res.data.id}/posts/`)
-                .then(res => {
-                    store.dispatch(setUserPosts(res.data));
+            sessionStorage.setItem('accessToken', res.data.access);
+            sessionStorage.setItem('refreshToken', res.data.refresh);
+            const access = res.data.access;
+
+            axios.get(`${base}users/current_user/`, {
+                headers: {
+                    'Authorization': `Bearer ${res.data.access}`
+                }
+            }).then(res => {
+
+                store.dispatch(setUserAction(res.data));
+                axios.get(`${base}users/${res.data.id}/saves/`,{
+                    headers: {
+                        'Authorization': `Bearer ${access}`
+                    }
+                }).then(res =>{
+                    store.dispatch(setSavePostsAction(res.data));
+                }).catch(error =>{
+                    console.log(error)});
+
+                axios.get(`${base}users/${res.data.id}/posts/`)
+                    .then(res => {
+                        store.dispatch(setUserPosts(res.data));
+                    }).catch(error => {
+                    console.log(error)
+                });
+                axios.get(`${base}users/${res.data.id}/subscriptions/`).then(res => {
+                    store.dispatch(setFollowAction(res.data));
+                    res.data.map( p => {
+                        axios.get(`${base}users/${p.to_user}/posts/`).then(res => {
+                            store.dispatch(setSubscriptionsPosts(res.data));
+                            store.dispatch(isFetchingAction(false));
+                        }).catch(error => {
+                            console.log(error);
+                        })
+                    })
                 }).catch(error => {
                     console.log(error)
-            });
-            axios.get(`${base}users/${res.data.id}/saves/`,{
-                headers: {
-                    'Authorization': `Bearer ${data}`
-                }
-            }).then(res =>{
-                store.dispatch(setSavePostsAction(res.data));
-            }).catch(error =>{
-                console.log(error)});
+                });
 
-            axios.get(`${base}users/${res.data.id}/subscriptions/`).then(res => {
-                store.dispatch(setFollowAction(res.data));
-                res.data.map( p => {
-                    axios.get(`${base}users/${p.to_user}/posts/`).then(res => {
-                        store.dispatch(setSubscriptionsPosts(res.data));
-                        store.dispatch(isFetchingAction(false));
-                    }).catch(error => {
-                        console.log(error);
-                    })
-                })
             }).catch(error => {
                 console.log(error)
-            });
-
+            })
         }).catch(error => {
             console.log(error)
         })

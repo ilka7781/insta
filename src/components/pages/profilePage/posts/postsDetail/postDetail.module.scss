@@ -17,6 +17,7 @@
         justify-content: space-between;
         gap: 20px;
         align-items: center;
+        position: relative;
         div{
             display: flex;
             align-items: center;
@@ -79,6 +80,31 @@
     display: flex;
     align-items: center;
     gap: 10px;
+}
+.dotsDiv{
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #888686;
+    position: absolute;
+    z-index: 1;
+    right: 0%;
+    top: 100%;
+    ul li{
+        margin: 10px 0;
+        border-bottom: 1px solid black;
+        padding-bottom:5px ;
+        font-weight: bold;
+        transition: 0.1s linear;
+        &:hover{
+            cursor: pointer;
+            border-bottom-color: #e05c0b;
+            color: #e05c0b;
+        }
+    }
+}
+.inActive{
+    display: none!important;
 }
 @media(max-width: 900px) {
     .userPost_img{
