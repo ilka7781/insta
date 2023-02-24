@@ -2,7 +2,7 @@ import axios from "axios";
 import {
     isFetchingAction,
     setFollowAction,
-    setPostId, setResetAction, setSavePostsAction, setSelectedUserPostsAction, setStoryAction,
+    setPostId, setResetAction, setSavePostsAction, setSelectedUserPostsAction, setStoriesAction, setStoryAction,
     setSubscriptionsPosts,
     setUserAction,
     setUserPosts,
@@ -56,6 +56,15 @@ export const API = {
                     }).catch(error => {
                     console.log(error)
                 });
+                axios.get(`${base}stories/` , {
+                    headers: {
+                        'Authorization': `Bearer ${access}`
+                    }
+                }).then(res => {
+                    store.dispatch(setStoriesAction(res.data))
+                }).catch(error => {
+                    console.log(error)
+                })
                 axios.get(`${base}users/${res.data.id}/subscriptions/`).then(res => {
                     store.dispatch(setFollowAction(res.data));
                     res.data.map( p => {
@@ -134,8 +143,42 @@ export const API = {
                         console.log(error)
                 })
             }
+            axios.get(`${base}stories/` , {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            }).then(res => {
+                store.dispatch(setStoriesAction(res.data))
+            }).catch(error => {
+                console.log(error)
+            })
         }).catch(error=>{
             console.log(error)
+        })
+    },
+    deleteStory: (storyId,accessToken,user) => {
+        axios.delete(`${base}stories/${storyId}/`, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        }).then(res => {
+            if(res){
+                axios.get(`${base}users/${user}/stories/`)
+                    .then(res=>{
+                        store.dispatch(setStoryAction(res.data))
+                    }).catch(error=>{
+                    console.log(error)
+                });
+                axios.get(`${base}stories/` , {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                }).then(res => {
+                    store.dispatch(setStoriesAction(res.data))
+                }).catch(error => {
+                    console.log(error)
+                })
+            }
         })
     },
     getUsers: () => {
@@ -157,6 +200,15 @@ export const API = {
             axios.get(`${base}users/${res.data.from_user}/subscriptions/`).then(res => {
                 store.dispatch(setFollowAction(res.data));
                 store.dispatch(isFetchingAction(true));
+                axios.get(`${base}stories/` , {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                }).then(res => {
+                    store.dispatch(setStoriesAction(res.data))
+                }).catch(error => {
+                    console.log(error)
+                })
                 res.data.map( p => {
                     axios.get(`${base}users/${p.to_user}/posts/`).then(res => {
                         store.dispatch(setSubscriptionsPosts(res.data));

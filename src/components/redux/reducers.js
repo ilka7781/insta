@@ -14,6 +14,7 @@ const SET_SUB_POSTS = 'SET_SUB_POSTS';
 const SET_SAVE_POSTS = 'SET_SAVE_POSTS';
 const RESET = 'RESET';
 const SET_STORY = 'SET_STORY';
+const SET_STORIES = 'SET_STORIES';
 
 const initialState = {
     user: [],
@@ -31,6 +32,7 @@ const initialState = {
     images: [],
     tags: [],
     stories: [],
+    allStories: [],
     follows: [],
     subPosts:[],
     isFetching: false,
@@ -104,6 +106,11 @@ export const reducer = (state = initialState, action)=> {
                 ...state,
                 stories: action.payload
             }
+        case SET_STORIES:
+            return {
+                ...state,
+                allStories: action.payload
+            }
         case RESET:
             return initialState;
 
@@ -127,4 +134,5 @@ export const selectedUserAction = (data) => ({type: SELECTED_USER, payload: data
 export const setSelectedUserPostsAction = (data) => ({type: SET_SELECTED_USER_POSTS, payload: data});
 export const setSavePostsAction = (data) => ({type: SET_SAVE_POSTS, payload: data});
 export const setStoryAction = (data) => ({type: SET_STORY, payload: data});
+export const setStoriesAction = (data) => ({type: SET_STORIES, payload: data});
 export const setResetAction =  {type: RESET};

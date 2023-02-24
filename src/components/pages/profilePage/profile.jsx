@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import c from './profile.module.scss';
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {BsGrid3X3} from "@react-icons/all-files/bs/BsGrid3X3";
 import {BsBookmark} from "@react-icons/all-files/bs/BsBookmark";
@@ -13,6 +13,9 @@ import {IoMdAddCircleOutline} from "@react-icons/all-files/io/IoMdAddCircleOutli
 import {IoClose} from "@react-icons/all-files/io5/IoClose";
 import {BsImages} from "@react-icons/all-files/bs/BsImages";
 import {useForm} from "react-hook-form";
+import noProfile from '../../../img/1.jpg';
+import {AiFillDelete} from "@react-icons/all-files/ai/AiFillDelete";
+
 
 const Profile = () => {
     const user = useSelector(state => state.allState.user);
@@ -23,10 +26,21 @@ const Profile = () => {
     const accessToken = sessionStorage.getItem('accessToken');
     const [posts, setPosts] = useState(true);
     const [saves, setSaves] = useState(false);
-    const [openAddStory,setOpenAddStory] =useState(false);
-    const [img,setImg] = useState(null);
+    const [open,setOpen] = useState(false);
+    const [openAddStory, setOpenAddStory] = useState(false);
+    const [img, setImg] = useState(null);
     const base = 'https://cryxxxen.pythonanywhere.com/';
 
+
+    const avatar = user?.avatar ? user?.avatar : noProfile;
+
+    const setOpenFunc = () => {
+        if (open === false) {
+            setOpen(true)
+        } else {
+            setOpen(false)
+        }
+    }
 
     const {handleSubmit} = useForm({
         mode: "onChange",
@@ -42,12 +56,41 @@ const Profile = () => {
     const handleImg = () => {
         const formData = new FormData;
         formData.append('file', img);
-        API.postStories(formData,user.id,accessToken);
+        API.postStories(formData, user.id, accessToken);
     }
 
-    const storiesMapped = stories?.map(s=>(
-        <div key={s.id} className={c.profile_info_stories_divs}>
-            <img src={`${base}${s.file}`} alt="#"/>
+    const deleteStory = (storyId) => {
+        API.deleteStory(storyId,accessToken, user?.id )
+    }
+
+
+    const storiesMapped = stories?.map(s => (
+        <div key={s.id} onClick={setOpenFunc}>
+            <div className={c.profile_info_stories_divs}>
+                <img src={`${base}${s?.file}`} alt="#"/>
+            </div>
+
+            <div className={open ? c.layOut : `${c.layOut} ${c.inActive}`}>
+                <div className={c.containerS}>
+                    <div className={c.userBlock}>
+                        <div className={c.userBlock_1div} onClick={setOpenFunc}>
+                                <img className={c.avatar} src={avatar} alt="#"/>
+                                <span className={c.userBlock_span}>
+                                  {user?.username}
+                                </span>
+                        </div>
+
+                        <div className={c.buttonS}>
+                            <IoClose onClick={() => setOpen(false)}/>
+                            <AiFillDelete className={c.buttonD} onClick={() => deleteStory(s?.id)}/>
+                        </div>
+                    </div>
+
+                    <div className={c.layOut_img}>
+                        <img className={c.imgS} src={`${base}${s?.file}`} alt="#"/>
+                    </div>
+                </div>
+            </div>
         </div>
     ))
 
@@ -92,19 +135,20 @@ const Profile = () => {
 
 
                 <div className={c.profile_info_stories}>
-                        <IoMdAddCircleOutline className={c.profile_info_stories_add} onClick={() => {
-                            if (openAddStory === false) {
+                    <IoMdAddCircleOutline className={c.profile_info_stories_add} onClick={() => {
+                        if (openAddStory === false) {
                             setOpenAddStory(true)
                         } else {
                             setOpenAddStory(false)
                         }
-                        } }/>
+                    }}/>
 
-                        <div className={ stories?.length > 0 ? `${c.profile_info_stories_noDivs} ${c.inActive}` : c.profile_info_stories_noDivs  }>
-                            <p>
-                                Добавьте Сторис
-                            </p>
-                        </div>
+                    <div
+                        className={stories?.length > 0 ? `${c.profile_info_stories_noDivs} ${c.inActive}` : c.profile_info_stories_noDivs}>
+                        <p>
+                            Добавьте Сторис
+                        </p>
+                    </div>
 
                     {
                         storiesMapped
@@ -124,7 +168,7 @@ const Profile = () => {
                                     <label className={c.foto} htmlFor={'upload_file1'}>
                                         Загрузить фото
                                     </label>
-                                    <p className={img ? c.vybrano : `${c.vybrano} ${c.input}` }>
+                                    <p className={img ? c.vybrano : `${c.vybrano} ${c.input}`}>
                                         Выбрано фото {img?.name}
                                     </p>
                                     <input id={'upload_file1'} type="file" className={c.input}

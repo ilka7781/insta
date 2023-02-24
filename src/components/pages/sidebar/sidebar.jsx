@@ -28,6 +28,8 @@ const Sidebar = () => {
     const [img, setImg] = useState(null);
     const [openEshe, setOpenEshe] = useState(false);
 
+    const avatar =  user.avatar ? user.avatar : noProfile;
+
     const accessToken = sessionStorage.getItem('accessToken');
     const refreshToken = sessionStorage.getItem('refreshToken');
     const dispatch = useDispatch();
@@ -227,7 +229,7 @@ const Sidebar = () => {
                             </li>
                             <li>
                                 <Link to='/profile'>
-                                    <img className={c.avatar} src={user.avatar} alt="#"/>
+                                    <img className={c.avatar} src={avatar} alt="#"/>
                                     <div className={c.linksa}>
                                         Профиль
                                     </div>

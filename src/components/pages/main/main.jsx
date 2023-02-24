@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {API} from "../../redux/api";
 import {Link, useNavigate} from "react-router-dom";
 import c from './main.module.scss';
@@ -8,18 +8,41 @@ import noProfile from '../../../img/1.jpg';
 import {IoClose} from "@react-icons/all-files/io5/IoClose";
 import Follows from "./follows/follows";
 import PostsMain from "./posts/postsMain";
-import {selectedUserAction} from "../../redux/reducers";
+import {IoMdAddCircleOutline} from "@react-icons/all-files/io/IoMdAddCircleOutline";
+import {BsImages} from "@react-icons/all-files/bs/BsImages";
+import {useForm} from "react-hook-form";
+
+
 
 const Main = () => {
     const user = useSelector(state => state.allState.user);
     const users = useSelector(state => state.allState.users);
     const follows = useSelector(state => state.allState.follows);
+    const allStories = useSelector(state => state.allState.allStories);
     const isFetching = useSelector(state => state.allState.isFetching);
-    const stories = useSelector(state => state.allState.stories);
     const subPosts = useSelector(state => state.allState.subPosts);
     const accessToken = sessionStorage.getItem('accessToken');
     const [open, setOpen] = useState(false);
+    const [openAddStory, setOpenAddStory] = useState(false);
+    const [img, setImg] = useState(null);
     const navigate = useNavigate();
+
+    const avatar =  user.avatar ? user.avatar : noProfile;
+
+    //story
+
+    const {handleSubmit} = useForm({
+        mode: "onChange",
+        defaultValues: {
+            img: null
+        }
+    });
+    const handleImg = () => {
+        const formData = new FormData;
+        formData.append('file', img);
+        API.postStories(formData, user.id, accessToken);
+    }
+
 
     useEffect(() => {
         setTimeout(() => {
@@ -38,7 +61,7 @@ const Main = () => {
     }
 
     //FOLLOWS
-    const followsMapped = follows.map(f => (<Follows key={f.id} f={f}/>))
+    const stories = allStories.map(f => (<Follows key={f.id} f={f}/>));
 
     //POSTS
     const subPostsFiltered = subPosts.filter(s => s.length > 0);
@@ -74,7 +97,44 @@ const Main = () => {
 
                     <div className={c.main_body}>
                         <div className={c.main_body_header}>
-                            {followsMapped}
+                            <div className={c.profile_info_stories_add}>
+                                <IoMdAddCircleOutline className={c.profile_info_stories_add} onClick={() => {
+                                    if (openAddStory === false) {
+                                        setOpenAddStory(true)
+                                    } else {
+                                        setOpenAddStory(false)
+                                    }
+                                }}/>
+
+                                <div className={openAddStory ? c.layout : `${c.layout} ${c.inActive}`}>
+                                    <div className={c.layout_block}>
+                                        <p className={c.layout_block_p}>Создание сторис</p>
+                                        <hr/>
+                                        <div className={c.layout_block_add}>
+                                            <IoClose className={c.close} onClick={() => setOpenAddStory(false)}/>
+                                            <BsImages/>
+                                            <p className={c.layout_block_p2}>
+                                                Выберите фото
+                                            </p>
+                                            <form className={c.form} onSubmit={handleSubmit(data => handleImg(data))}>
+                                                <label className={c.foto} htmlFor={'upload_file1'}>
+                                                    Загрузить фото
+                                                </label>
+                                                <p className={img ? c.vybrano : `${c.vybrano} ${c.input}`}>
+                                                    Выбрано фото {img?.name}
+                                                </p>
+                                                <input id={'upload_file1'} type="file" className={c.input}
+                                                       onChange={(e) => setImg(e.target.files[0])}/>
+                                                <button className={c.upload}>
+                                                    Добавить сторис
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {stories}
                         </div>
                         <div className={c.main_body_posts}>
                             {subPostsMapped}
@@ -84,7 +144,7 @@ const Main = () => {
                         <div className={c.main_user_avatar}>
                             <div className={c.main_user_avatar_1}>
                                 <Link to={'/profile'}>
-                                    <img src={user.avatar} alt="#"/>
+                                    <img src={avatar} alt="#"/>
                                 </Link>
                                     <span>
                                         <Link to={'/profile'}>
@@ -97,10 +157,6 @@ const Main = () => {
                                     Переключиться
                                 </Link>
                             </div>
-
-                        </div>
-                        <div className={c.main_user_rec}>
-
                         </div>
                     </div>
                 </div>
